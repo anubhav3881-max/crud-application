@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/bs.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bs.css' %}">
+    <style>
+        body {
+            background: linear-gradient(to right, darkred, red);
+            font-family: Arial;
+            color: white;
+        }
+
+        .box {
+            width: 70%;
+            margin: 50px auto;
+            padding: 30px;
+            border: 2px solid #fff;
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <a href="../" class="btn btn-secondary">Go Back</a>
+        <h1>Welcome {{user | title}}</h1>
+        <h2 style="text-align:center;">Admission Details</h2>
+
+        <div class="card shadow">
+            <div class="card-body" style="overflow-x: scroll;">
+                <table class="table">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Photos</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Address</th>
+                            <th>DOB</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in data %}
+                        <tr>
+                            <td>
+                                <img src="{{x.image.url}}" alt="image" width="100" height="100">
+                            </td>
+                            <td>{{x.name}}</td>
+                            <td>{{x.email}}</td>
+                            <td>{{x.contact}}</td>
+                            <td>{{x.address}}</td>
+                            <td>{{x.dob}}</td>
+                            <td>
+                                <a href="delete/{{x.id}}" class="btn btn-danger my-1 ms-1">Delete</a><br>
+                                <a href="edit/{{x.id}}" class="btn btn-warning my-1">Update</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

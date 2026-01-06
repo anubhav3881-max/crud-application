@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/bs.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <style>
+        .mysecondcontainer{
+            width: 500px;
+            box-shadow: 3px 3px 5px grey;
+            padding: 10px;
+            margin-top: 70px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="container mysecondcontainer">
+            <h1 class="text text-center shadow py-2">Login</h1>
+            <form id="loginform">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" name="username" class="form-control" placeholder="Type username" required>
+                <label for="password">Password:</label>
+                <input type="password" name="password" class="form-control" placeholder="Type password" required>
+                <p class="text text-center">Don't have account?<a href="../signup">Signup</a></p>
+                <div class="text text-center">
+                <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+                {% if error %}
+                <div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+                    <strong>{{error}}</strong>
+                    <button type="button" class="btn btn-close" data-bs-dissmiss="alert" aria-label="close"></button>
+                </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script>
+    $(function(){
+        $("#loginform").submit(function(l){
+            l.preventDefault()
+
+            $.ajax({
+                method: "POST",
+                url: "login",
+                data: new FormData(this),
+                contentType: false,
+                processData: false,
+                success: function(res){
+                    if(res.success){
+                         window.location.href="/"
+                    }else{
+                        alert("Invalid Username Or Password")
+                    }
+                   
+                }
+            })
+        })
+    })
+</script>
+</html>
