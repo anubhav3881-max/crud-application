@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="{% static 'css/bs.css' %}">
     <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
     <style>
+        body{
+            background-image: linear-gradient(to bottom, red, yellow);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            height: 700px;
+        }
         
         .myfirst {
             box-shadow: 3px 3px 5px grey;
@@ -25,6 +31,39 @@
         }
         .display{
             margin-left: 510px;
+        }
+        @media (min-width: 200px){
+            .myfirst {
+            box-shadow: 3px 3px 5px grey;
+            width: auto;
+            padding: 3px;
+
+        }
+        .display{
+            margin-left: 150px;
+        }
+        .submitbutton {
+            width: 80px;
+            margin-top: 7px;
+            margin-left: 13px;
+
+        }
+        }
+        
+        @media (min-width: 425px){
+            .display{
+            margin-left: 250px;
+        }
+        }
+        @media (min-width: 768px){
+            .display{
+            margin-left: 540px;
+        }
+        }
+        @media (min-width: 1300px){
+            .display{
+            margin-left: 960px;
+        }
         }
     </style>
 </head>

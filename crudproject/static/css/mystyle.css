@@ -1,5 +1,5 @@
 body{
-            background-image: linear-gradient(to top left, blue, red, black);
+            background-image: linear-gradient(to bottom, red, yellow);
             background-size: 100% 100%;
             background-repeat: no-repeat;
             height: 700px;

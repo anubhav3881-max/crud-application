@@ -60,17 +60,22 @@ def signuppage(request):
         password=request.POST.get('password')
         confirmpassword=request.POST.get('confirmpassword')
         if(password!=confirmpassword):
-            return render(request, 'signup.html', {'error':"password and confirm password does not match!"})
-        user, created=User.objects.get_or_create(username=username,defaults={'email':email})
-        if created:
-          user.set_password(password)
-          user.save()
-          return render(request,'signup.html',{'success':"Your Account has been created successfully!"})
-        else:
-          return render(request,'signup.html',{'success':"User Exist"})
-        # user=User.objects.create_user(username=username, email=email, password=password)
-        # user.save()
-        # return render(request, 'signup.html', {'success':"user created successfully!"})
+            return JsonResponse({'error':"password and confirm password does not match!"})
+         # 2. Check if Username already exists
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({'error': "Username already exists!"}, status=400)
+
+        # 3. Check if Email already exists (Optional but recommended)
+        if User.objects.filter(email=email).exists():
+            return JsonResponse({'error': "Email already registered!"}, status=400)
+
+        # 4. User Create Karein
+        try:
+            user = User.objects.create_user(username=username, email=email, password=password)
+            user.save()
+            return JsonResponse({'success': "Your Account has been created successfully!"}, status=200)
+        except Exception as e:
+            return JsonResponse({'error': "Something went wrong: " + str(e)}, status=500)
     return render(request, 'signup.html')
 def loginpage(request):
     if(request.method=="POST"):
